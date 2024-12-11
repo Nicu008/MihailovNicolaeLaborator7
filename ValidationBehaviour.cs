@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MihailovNicolaeLaborator7.Models
+namespace MihailovNicolaeLaborator7
 {
     public class ValidationBehaviour : Behavior<Editor>
     {

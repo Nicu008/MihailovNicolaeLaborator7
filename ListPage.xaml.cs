@@ -4,10 +4,11 @@ using SQLite;
 
 public partial class ListPage : ContentPage
 {
-	public ListPage()
-	{
-		InitializeComponent();
-	}
+    public ListPage()
+    {
+        InitializeComponent();
+    }
+
     async void OnSaveButtonClicked(object sender, EventArgs e)
     {
         var slist = (ShopList)BindingContext;
@@ -23,10 +24,24 @@ public partial class ListPage : ContentPage
     }
     async void OnChooseButtonClicked(object sender, EventArgs e)
     {
-        await Navigation.PushAsync(new ProductPage((ShopList)
-        this.BindingContext)
+        await Navigation.PushAsync(new ProductPage((ShopList)this.BindingContext)
         {
             BindingContext = new Product()
         });
+    }
+    protected override async void OnAppearing()
+    {
+        base.OnAppearing();
+        var shopl = (ShopList)BindingContext;
+        listView.ItemsSource = await App.Database.GetListProductsAsync(shopl.ID);
+    }
+    async void OnDeleteItemClicked(object sender, EventArgs e)
+    {
+        var product = listView.SelectedItem as Product;
+        if (product != null)
+        {
+            await App.Database.DeleteProductAsync(product);
+            listView.ItemsSource = await App.Database.GetProductsAsync();
+        }
     }
 }

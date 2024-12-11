@@ -1,5 +1,7 @@
 using Microsoft.Maui.Controls;
 using MihailovNicolaeLaborator7.Models;
+using System.Text;
+
 namespace MihailovNicolaeLaborator7;
 
 public partial class ListEntryPage : ContentPage
@@ -11,6 +13,7 @@ public partial class ListEntryPage : ContentPage
     protected override async void OnAppearing()
     {
         base.OnAppearing();
+
         listView.ItemsSource = await App.Database.GetShopListsAsync();
     }
     async void OnShopListAddedClicked(object sender, EventArgs e)
